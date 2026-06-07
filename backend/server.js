@@ -8,21 +8,21 @@ mongoose.connect("mongodb://db:27017/votingDB")
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error(err));
 
-const VoteSchema = new mongoose.Schema({ party: String, count: { type: Number, default: 0 } });
+const VoteSchema = new mongoose.Schema({ option: String, count: { type: Number, default: 0 } });
 const Vote = mongoose.model("Vote", VoteSchema);
 
 // Initializing data if empty
 const initData = async () => {
     const counts = await Vote.countDocuments();
     if (counts === 0) {
-        await Vote.insertMany([{ party: "BJP", count: 0 }, { party: "INC", count: 0 }]);
+        await Vote.insertMany([{ option: "Yes", count: 0 }, { option: "No", count: 0 }]);
     }
 };
 initData();
 
 app.post("/vote", async (req, res) => {
-    const { party } = req.body;
-    await Vote.findOneAndUpdate({ party }, { $inc: { count: 1 } });
+    const { option } = req.body;
+    await Vote.findOneAndUpdate({ option }, { $inc: { count: 1 } });
     res.json({ success: true });
 });
 
