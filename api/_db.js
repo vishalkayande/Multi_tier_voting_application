@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 
 let conn = null;
-
-const VoteSchema = new mongoose.Schema({ option: String, count: { type: Number, default: 0 } });
-const Vote = mongoose.model("Vote", VoteSchema);
+let Vote = null;
 
 exports.connectDB = async () => {
-  if (conn) return { conn, Vote };
+  if (conn && mongoose.connection.readyState === 1) {
+    return { conn, Vote };
+  }
+
+  const VoteSchema = new mongoose.Schema({ option: String, count: { type: Number, default: 0 } });
+  Vote = mongoose.models.Vote || mongoose.model("Vote", VoteSchema);
 
   conn = await mongoose.connect(process.env.MONGODB_URI, {
     serverSelectionTimeoutMS: 5000,
