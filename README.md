@@ -110,5 +110,11 @@ docker network rm frontend-network backend-network
 docker volume rm vote-db-data
 ```
 
+Screenshots:
+<img width="1919" height="987" alt="Screenshot 2026-06-07 171833" src="https://github.com/user-attachments/assets/0d255b6c-a9b6-4a70-93ff-3689f1ab417c" />
+<img width="1919" height="1139" alt="Screenshot 2026-06-07 171852" src="https://github.com/user-attachments/assets/98a37e0f-a782-4747-bf5c-d44d49b12288" />
+
+
+```
 ## Conclusion
 This project successfully simulates a production-grade environment, providing hands-on experience in container orchestration, network-level security, and scalable multi-tier application design.
